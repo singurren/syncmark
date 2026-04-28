@@ -2,7 +2,9 @@
 # Real SyncMark + BiMark small smoke test for Katana.
 
 #PBS -N syncmark_bimark_real_smoke
-#PBS -l select=1:ncpus=4:mem=24gb
+# Request a GPU supported by the current PyTorch CUDA build. Change L40S to
+# A100 if the L40S queue is unavailable or slower for the current workload.
+#PBS -l select=1:ncpus=4:mem=24gb:ngpus=1:gpu_model=L40S
 #PBS -l walltime=02:00:00
 #PBS -M z5542506@ad.unsw.edu.au
 #PBS -j oe
@@ -18,6 +20,8 @@ if [ -z "${RUN_ID}" ]; then
 fi
 
 cd "${PROJECT_DIR}"
+
+module load cuda/13.0.0
 
 export PYTHONUNBUFFERED=1
 export UV_CACHE_DIR="/tmp/${USER}/uv-cache"
@@ -46,8 +50,27 @@ echo "New tokens : ${MAX_NEW_TOKENS}"
 echo "Python     : $(uv run python --version)"
 PYTORCH_INFO="$(uv run python -c 'import torch; print(torch.__version__, "| CUDA build:", torch.version.cuda, "| CUDA visible:", torch.cuda.is_available())')"
 echo "PyTorch    : ${PYTORCH_INFO}"
+nvidia-smi
 echo "Started    : $(date)"
 echo "==============================="
+
+uv run python - <<'PY'
+import torch
+
+print("CUDA visible:", torch.cuda.is_available())
+if not torch.cuda.is_available():
+    raise SystemExit("This PBS job requested a GPU, but CUDA is not visible to PyTorch.")
+
+name = torch.cuda.get_device_name(0)
+capability = torch.cuda.get_device_capability(0)
+print(f"Assigned GPU: {name} | compute capability: {capability[0]}.{capability[1]}")
+
+if capability < (7, 5):
+    raise SystemExit(
+        "The assigned GPU is not supported by the current PyTorch CUDA build. "
+        "Request L40S/A100, or install a PyTorch build that includes this GPU architecture."
+    )
+PY
 
 GEN_LOG="$(mktemp)"
 

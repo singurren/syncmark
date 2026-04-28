@@ -53,11 +53,13 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - Run real SyncMark-on-BiMark generation from the repository root with `uv run python -m bimark.generate_text_dump --method bimark --syncmark_outer --ecc_method none ...`.
 - Avoid heavy computation on the Katana login node.
 - If a task is long-running, write a PBS job script first and submit it with `qsub`.
-- Start with CPU resources. Request `ngpus=1` or a GPU model only when the code path truly requires GPU execution.
+- Start with CPU resources for synthetic or lightweight non-model checks. Real BiMark generation should use GPU resources.
 - For GPU jobs using the current lockfile, load `cuda/13.0.0` before running PyTorch. The current root environment resolves to a CUDA 13.0 PyTorch build.
+- The current PyTorch wheel does not support V100 compute capability 7.0. For real BiMark jobs, request a supported GPU model such as `gpu_model=L40S` or `gpu_model=A100`. Changing the loaded CUDA module alone does not add missing GPU architectures to an already installed PyTorch wheel.
+- If V100 must be used, install or select a PyTorch build that includes V100/sm70 support before submitting the job.
 - Set `UV_CACHE_DIR` to a writable path such as `/tmp/${USER}/uv-cache` or a project-local cache before `uv sync` / `uv run`; the default scratch cache may be read-only in some sessions.
 - Use `template.pbs` as the reference style for new job scripts.
-- Use `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs` for the first real 20-50 sample SyncMark-on-BiMark smoke test. It is CPU-only by default because the current CUDA 13.0 PyTorch build does not support Katana V100 GPUs.
+- Use `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs` for the first real 20-50 sample SyncMark-on-BiMark smoke test. It requests `gpu_model=L40S` by default and performs a PyTorch CUDA compatibility preflight before generation.
 
 - 运行 SyncMark 和 BiMark 代码时统一使用根目录 `uv` 项目。根目录 `pyproject.toml` 与根目录 `uv.lock` 是运行依赖的唯一准则。
 - 常规运行不要在 `bimark/` 子目录创建、同步或记录独立虚拟环境。除非未来明确迁移，否则嵌套的 `bimark/pyproject.toml` 或 `bimark/uv.lock` 只视为历史元数据。
@@ -66,11 +68,13 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - 真实 SyncMark-on-BiMark 生成也从仓库根目录执行，例如 `uv run python -m bimark.generate_text_dump --method bimark --syncmark_outer --ecc_method none ...`。
 - 不要在 Katana 登录节点做重计算。
 - 只要任务会长时间运行，就先写 PBS 作业脚本，再用 `qsub` 提交。
-- 默认先申请 CPU；只有代码路径明确依赖 GPU 时才申请 `ngpus=1` 或指定 `gpu_model`。
+- synthetic 或轻量非模型检查默认先申请 CPU；真实 BiMark 生成应使用 GPU 资源。
 - 使用当前 lockfile 的 GPU 作业应先加载 `cuda/13.0.0`，因为当前根环境解析到 CUDA 13.0 版 PyTorch。
+- 当前 PyTorch wheel 不支持 V100 的 compute capability 7.0。真实 BiMark 作业应申请受支持的 GPU 型号，例如 `gpu_model=L40S` 或 `gpu_model=A100`。仅切换已加载的 CUDA module 不会给已经安装好的 PyTorch wheel 增加缺失的 GPU 架构支持。
+- 如果必须使用 V100，需要先安装或选择包含 V100/sm70 支持的 PyTorch build，再提交作业。
 - 在执行 `uv sync` / `uv run` 前，将 `UV_CACHE_DIR` 指向可写路径，例如 `/tmp/${USER}/uv-cache` 或项目内 cache；部分会话中的默认 scratch cache 可能是只读的。
 - 新 PBS 作业脚本的风格以 `template.pbs` 为参考。
-- 第一次真实 20-50 条 SyncMark-on-BiMark smoke test 使用 `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs`。该脚本默认使用 CPU，因为当前 CUDA 13.0 PyTorch build 不支持 Katana V100 GPU。
+- 第一次真实 20-50 条 SyncMark-on-BiMark smoke test 使用 `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs`。该脚本默认申请 `gpu_model=L40S`，并在生成前执行 PyTorch CUDA 兼容性预检查。
 
 ## Result Logging Standard / 结果记录规范
 
