@@ -50,23 +50,27 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - Do not create, sync, or document a separate `bimark/` virtual environment for normal runs. Treat any nested `bimark/pyproject.toml` or `bimark/uv.lock` as legacy metadata unless a future migration deliberately removes or repurposes them.
 - Run `uv sync` and `uv run ...` from the repository root. Do not run these code paths as bare `python` outside a managed environment.
 - Run cross-package smoke tests from the repository root, for example `uv run python -m bimark.run_syncmark_bimark_smoke --trials 20`.
+- Run real SyncMark-on-BiMark generation from the repository root with `uv run python -m bimark.generate_text_dump --method bimark --syncmark_outer --ecc_method none ...`.
 - Avoid heavy computation on the Katana login node.
 - If a task is long-running, write a PBS job script first and submit it with `qsub`.
 - Start with CPU resources. Request `ngpus=1` or a GPU model only when the code path truly requires GPU execution.
 - For GPU jobs using the current lockfile, load `cuda/13.0.0` before running PyTorch. The current root environment resolves to a CUDA 13.0 PyTorch build.
 - Set `UV_CACHE_DIR` to a writable path such as `/tmp/${USER}/uv-cache` or a project-local cache before `uv sync` / `uv run`; the default scratch cache may be read-only in some sessions.
 - Use `template.pbs` as the reference style for new job scripts.
+- Use `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs` for the first real 20-50 sample SyncMark-on-BiMark smoke test.
 
 - 运行 SyncMark 和 BiMark 代码时统一使用根目录 `uv` 项目。根目录 `pyproject.toml` 与根目录 `uv.lock` 是运行依赖的唯一准则。
 - 常规运行不要在 `bimark/` 子目录创建、同步或记录独立虚拟环境。除非未来明确迁移，否则嵌套的 `bimark/pyproject.toml` 或 `bimark/uv.lock` 只视为历史元数据。
 - 所有 `uv sync` 与 `uv run ...` 都从仓库根目录执行；不要在未托管环境中裸跑 `python`。
 - 跨包 smoke test 从仓库根目录执行，例如 `uv run python -m bimark.run_syncmark_bimark_smoke --trials 20`。
+- 真实 SyncMark-on-BiMark 生成也从仓库根目录执行，例如 `uv run python -m bimark.generate_text_dump --method bimark --syncmark_outer --ecc_method none ...`。
 - 不要在 Katana 登录节点做重计算。
 - 只要任务会长时间运行，就先写 PBS 作业脚本，再用 `qsub` 提交。
 - 默认先申请 CPU；只有代码路径明确依赖 GPU 时才申请 `ngpus=1` 或指定 `gpu_model`。
 - 使用当前 lockfile 的 GPU 作业应先加载 `cuda/13.0.0`，因为当前根环境解析到 CUDA 13.0 版 PyTorch。
 - 在执行 `uv sync` / `uv run` 前，将 `UV_CACHE_DIR` 指向可写路径，例如 `/tmp/${USER}/uv-cache` 或项目内 cache；部分会话中的默认 scratch cache 可能是只读的。
 - 新 PBS 作业脚本的风格以 `template.pbs` 为参考。
+- 第一次真实 20-50 条 SyncMark-on-BiMark smoke test 使用 `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs`。
 
 ## Result Logging Standard / 结果记录规范
 

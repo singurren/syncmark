@@ -1,0 +1,184 @@
+#!/bin/bash
+
+#PBS -N BiMark_Full_Attack_Benchmark
+#PBS -l select=1:ncpus=4:mem=128gb:ngpus=1:gpu_model=H200
+#PBS -l walltime=06:00:00
+#PBS -M z5542506@ad.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+# =============================================================================
+# BiMark 全量实验 - Final Comprehensive Version
+# =============================================================================
+
+MODEL_NAME="meta-llama/Meta-Llama-3.1-8B"
+BATCH_SIZE=10
+MAX_TOKENS=500 
+NUM_TESTS=100 
+
+# 攻击配置
+ATTACK_LEVELS=(0 20 40 60)
+PARA_BATCH_SIZE=5
+
+# [实验一] ECC
+ECC_MSG_LENS=(8 16 32)
+ECC_METHODS=("none" "hamming74" "reedsolomon")
+ECC_STRENGTH_RS=2
+
+# [实验二] Delta
+DELTA_LAYERS=(1 5 10 20)
+DELTA_PATTERNS=("constant" "increasing" "decreasing")
+DELTA_CONST_VAL=1.0
+DELTA_RANGE_MIN=0.5
+DELTA_RANGE_MAX=1.5
+
+export HF_HOME=/srv/scratch/z5542506/hf_cache
+export NLTK_DATA=/home/z5542506/9991/BiMark/nltk_data
+export GLOBAL_SEED=42
+MANIFEST_FILE="experiment_manifest_attack.json"
+
+# =============================================================================
+
+cd $PBS_O_WORKDIR
+module load python/3.13.2
+if ! command -v uv &> /dev/null; then echo "Error: uv not found"; exit 1; fi
+
+if [ ! -f "$MANIFEST_FILE" ]; then echo "[]" > $MANIFEST_FILE; fi
+
+# 辅助脚本
+cat <<EOF > _helper_gen_params.py
+import sys
+import numpy as np
+import random
+def gen_bits(length):
+    return "".join([str(random.randint(0,1)) for _ in range(int(length))])
+def gen_delta(layers, pattern, const_val, d_min, d_max):
+    layers = int(layers)
+    if pattern == 'constant':
+        return ",".join([str(const_val)] * layers)
+    elif pattern == 'increasing':
+        arr = np.linspace(float(d_min), float(d_max), layers)
+        return ",".join([f"{x:.2f}" for x in arr])
+    elif pattern == 'decreasing':
+        arr = np.linspace(float(d_max), float(d_min), layers)
+        return ",".join([f"{x:.2f}" for x in arr])
+    return "1.0"
+if __name__ == "__main__":
+    mode = sys.argv[1]
+    if mode == 'bits': print(gen_bits(sys.argv[2]))
+    elif mode == 'delta': print(gen_delta(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]))
+EOF
+
+register_experiment() {
+    uv run python3 -c "
+import json, os
+entry = $1
+path = '$MANIFEST_FILE'
+try:
+    data = json.load(open(path)) if os.path.exists(path) else []
+except:
+    data = []
+data.append(entry)
+with open(path, 'w') as f: json.dump(data, f, indent=4)
+"
+}
+
+run_attack_and_detect() {
+    DIR_NAME=$1
+    JSON_BASE=$2 
+    
+    for ATTACK_VAL in "${ATTACK_LEVELS[@]}"; do
+        echo "    > [Step] Attack Strength: $ATTACK_VAL"
+        
+        if [ "$ATTACK_VAL" -eq 0 ]; then
+            echo "      [Detect] Unattacked..."
+            uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" --detect
+        else
+            echo "      [Attack] Running DIPPER ($ATTACK_VAL)..."
+            uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" \
+                --paraphrase_attack --lex_diversity $ATTACK_VAL --order_diversity $ATTACK_VAL --paraphrase_batch $PARA_BATCH_SIZE
+            
+            echo "      [Detect] Attacked ($ATTACK_VAL)..."
+            uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" \
+                --detect --paraphrase_detect --lex_diversity $ATTACK_VAL --order_diversity $ATTACK_VAL
+        fi
+        
+        FINAL_JSON="${JSON_BASE}, \"attack_strength\": $ATTACK_VAL, \"directory\": \"$DIR_NAME\"}"
+        register_experiment "$FINAL_JSON"
+    done
+}
+
+# =============================================================================
+# PART 1: ECC 算法对比
+# =============================================================================
+echo "=== Starting PART 1: ECC Comparison ==="
+
+for BITS_LEN in "${ECC_MSG_LENS[@]}"; do
+    MESSAGE=$(uv run python3 _helper_gen_params.py bits $BITS_LEN)
+    for ECC_TYPE in "${ECC_METHODS[@]}"; do
+        echo ">>> Config: ECC=$ECC_TYPE | Bits=$BITS_LEN"
+        
+        CUR_ECC_STR=0
+        if [ "$ECC_TYPE" == "reedsolomon" ]; then CUR_ECC_STR=$ECC_STRENGTH_RS; 
+        elif [ "$ECC_TYPE" == "hamming74" ]; then CUR_ECC_STR=4; fi
+        
+        echo "  [1/3] Generating..."
+        LOG_OUTPUT=$(\
+            uv run python3 generate_text_dump.py \
+            --model_name "$MODEL_NAME" --method "bimark" \
+            --message "$MESSAGE" --ecc_method "$ECC_TYPE" --ecc_strength $CUR_ECC_STR \
+            --prob_delta "1.0" --partition_seeds "0,1,2,3,4,5,6,7,8,9" \
+            --num_test $NUM_TESTS --batch_size $BATCH_SIZE --max_new_tokens $MAX_TOKENS 2>&1 | tee /dev/fd/2 \
+        )
+        DIR_NAME=$(echo "$LOG_OUTPUT" | grep "AUTOMATION_OUTPUT_DIR:" | cut -d':' -f2 | tr -d '[:space:]')
+        
+        if [ -z "$DIR_NAME" ]; then echo "  [ERROR] Generation failed."; continue; fi
+        
+        echo "  [2/3] PPL..."
+        uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" --perplexity --length_all
+        
+        echo "  [3/3] Attacks..."
+        BASE_JSON="{\"experiment_group\": \"ecc\", \"ecc_method\": \"$ECC_TYPE\", \"msg_len\": $BITS_LEN"
+        run_attack_and_detect "$DIR_NAME" "$BASE_JSON"
+    done
+done
+
+# =============================================================================
+# PART 2: 动态 Delta 对比 (现在遍历 MSG_LEN 了)
+# =============================================================================
+echo "=== Starting PART 2: Dynamic Delta ==="
+
+# [MODIFIED] Loop through message lengths for Delta experiments too
+for BITS_LEN in "${ECC_MSG_LENS[@]}"; do
+    MESSAGE=$(uv run python3 _helper_gen_params.py bits $BITS_LEN)
+    
+    for LAYERS in "${DELTA_LAYERS[@]}"; do
+        SEEDS=$(seq -s, 0 $(($LAYERS - 1)))
+        for PATTERN in "${DELTA_PATTERNS[@]}"; do
+            echo ">>> Config: Delta=$PATTERN | Layers=$LAYERS | Bits=$BITS_LEN"
+            DELTA_LIST=$(uv run python3 _helper_gen_params.py delta $LAYERS $PATTERN $DELTA_CONST_VAL $DELTA_RANGE_MIN $DELTA_RANGE_MAX)
+            
+            echo "  [1/3] Generating..."
+            LOG_OUTPUT=$(\
+                uv run python3 generate_text_dump.py \
+                --model_name "$MODEL_NAME" --method "bimark" \
+                --message "$MESSAGE" --ecc_method "none" \
+                --prob_delta "$DELTA_LIST" --partition_seeds "$SEEDS" \
+                --num_test $NUM_TESTS --batch_size $BATCH_SIZE --max_new_tokens $MAX_TOKENS 2>&1 | tee /dev/fd/2 \
+            )
+            DIR_NAME=$(echo "$LOG_OUTPUT" | grep "AUTOMATION_OUTPUT_DIR:" | cut -d':' -f2 | tr -d '[:space:]')
+            
+            if [ -z "$DIR_NAME" ]; then echo "  [ERROR] Generation failed."; continue; fi
+            
+            echo "  [2/3] PPL..."
+            uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" --perplexity --length_all
+            
+            echo "  [3/3] Attacks..."
+            # Record msg_len here
+            BASE_JSON="{\"experiment_group\": \"delta\", \"layers\": $LAYERS, \"pattern\": \"$PATTERN\", \"msg_len\": $BITS_LEN"
+            run_attack_and_detect "$DIR_NAME" "$BASE_JSON"
+        done
+    done
+done
+
+echo "Done. Run python3 analyze_full_experiment_attack.py"

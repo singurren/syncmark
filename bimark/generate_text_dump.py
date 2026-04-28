@@ -17,6 +17,7 @@ import time
 from datetime import datetime
 import json
 from reedsolo import RSCodec, ReedSolomonError
+from syncmark.framing import build_layout
 
 def hamming74_encode_block(nibble):
     d1 = (nibble >> 3) & 1
@@ -39,6 +40,10 @@ def hamming74_encode_bits(bitstring):
         enc_val = hamming74_encode_block(val)
         encoded_res += f"{enc_val:07b}"
     return encoded_res
+
+def build_syncmark_schedule(message_bits, text_length, anchor_len, key):
+    layout = build_layout([int(bit) for bit in message_bits], text_length=text_length, anchor_len=anchor_len, key=key)
+    return ''.join(str(slot.expected_bit) for slot in layout)
 
 seed = int(os.environ.get('GLOBAL_SEED', 42))
 random.seed(seed)
@@ -116,6 +121,8 @@ def main(args):
                 original_bits = "0" * 16 
                 
             encoded_bits = original_bits
+            schedule_bits = None
+            schedule_mode = 'random_bit_index'
             ecc_type = args.ecc_method.lower()
             
             try:
@@ -135,6 +142,18 @@ def main(args):
             except Exception as e:
                 print(f"[ERROR] ECC Encoding failed: {e}. Fallback to original bits.")
                 encoded_bits = original_bits
+
+            if args.syncmark_outer:
+                if ecc_type != 'none':
+                    raise ValueError("syncmark_outer currently expects --ecc_method none so the payload budget is controlled by SyncMark framing.")
+                schedule_bits = build_syncmark_schedule(
+                    original_bits,
+                    text_length=args.max_new_tokens,
+                    anchor_len=args.syncmark_anchor_len,
+                    key=args.syncmark_key,
+                )
+                encoded_bits = schedule_bits
+                schedule_mode = 'position_schedule'
             
             print(f"Method: {ecc_type}, Msg: {original_bits} ({len(original_bits)}), Encoded: {len(encoded_bits)}")
 
@@ -142,7 +161,8 @@ def main(args):
                 tokenizer=tokenizer, vocab_size=model.config.vocab_size, device=device, 
                 top_k=args.top_k, partition_seeds=args.partition_seeds, 
                 c_key=args.c_key, bit_idx_key=args.bit_idx_key, 
-                delta=prob_delta, window_size=args.window_size, bits=encoded_bits
+                delta=prob_delta, window_size=args.window_size, bits=encoded_bits,
+                schedule_mode=schedule_mode, schedule_bits=schedule_bits
             )
             gen_args = {'logits_processor': [watermark_processor], 'max_new_tokens': args.max_new_tokens,
                         'temperature': args.temperature, 'attention_mask': attention_mask, 'do_sample': args.do_sample, 'top_k': args.top_k}
@@ -164,6 +184,11 @@ def main(args):
             "encoded_message": encoded_bits if encoded_bits else "",
             "ecc_method": args.ecc_method,
             "ecc_strength": args.ecc_strength,
+            "syncmark_outer": args.syncmark_outer,
+            "syncmark_anchor_len": args.syncmark_anchor_len,
+            "syncmark_key": args.syncmark_key,
+            "schedule_mode": schedule_mode if args.method.lower() == 'bimark' else "",
+            "schedule_bits": schedule_bits if args.method.lower() == 'bimark' and schedule_bits else "",
             "prob_delta": prob_delta,
             "partition_seeds": args.partition_seeds,
             "window_size": args.window_size,
@@ -212,5 +237,8 @@ if __name__ == "__main__":
     parser.add_argument("--do_sample", action='store_true')
     parser.add_argument("--ecc_method", type=str, default="none")
     parser.add_argument("--ecc_strength", type=int, default=0)
+    parser.add_argument("--syncmark_outer", action="store_true")
+    parser.add_argument("--syncmark_anchor_len", type=int, default=6)
+    parser.add_argument("--syncmark_key", type=str, default="syncmark-bimark-real")
     args = parser.parse_args()
     main(args)

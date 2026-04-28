@@ -13,6 +13,7 @@ This repository is organized as one root `uv` project. Run `uv sync` and `uv run
 - `bimark/`
   - BiMark baseline code and SyncMark-on-BiMark integration experiments.
   - Keep real BiMark generation and detection code here.
+  - `generate_text_dump.py` and `detect_generation_text_dump.py` include the real SyncMark-on-BiMark smoke path via `--syncmark_outer`.
   - Vendored from `https://github.com/singurren/LLM_with_watermark.git` at source commit `a8e41022ecd099b5859807d69ec815b601d7f03c`.
   - The nested BiMark git metadata was removed on 2026-04-28 so the root SyncMark repository can record cross-package research changes atomically.
   - `bimark/pyproject.toml` and `bimark/uv.lock` are legacy metadata; normal runs use the root `pyproject.toml` and root `uv.lock`.
@@ -28,6 +29,7 @@ This repository is organized as one root `uv` project. Run `uv sync` and `uv run
 - `bimark/`
   - BiMark baseline 代码，以及 SyncMark 接入 BiMark 的实验代码。
   - 真实 BiMark 生成与检测管线保留在这里。
+  - `generate_text_dump.py` 和 `detect_generation_text_dump.py` 通过 `--syncmark_outer` 提供真实 SyncMark-on-BiMark smoke 路径。
   - 来源为 `https://github.com/singurren/LLM_with_watermark.git`，原始 commit 为 `a8e41022ecd099b5859807d69ec815b601d7f03c`。
   - 2026-04-28 已移除嵌套 BiMark git 元数据，使根目录 SyncMark 仓库可以原子化记录跨包研究改动。
   - `bimark/pyproject.toml` 和 `bimark/uv.lock` 属于历史元数据；常规运行使用根目录 `pyproject.toml` 和根目录 `uv.lock`。

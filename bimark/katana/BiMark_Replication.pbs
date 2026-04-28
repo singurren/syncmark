@@ -1,0 +1,116 @@
+#!/bin/bash
+
+#PBS -N BiMark_Replication
+#PBS -l select=1:ncpus=4:mem=32gb:ngpus=1:gpu_model=A100
+#PBS -l walltime=01:00:00
+#PBS -M z5542506@ad.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+#=================================================================
+# SCRIPT START
+#=================================================================
+echo "==========================================================="
+echo "Job started at: $(date)"
+echo "Job ID: $PBS_JOBID"
+echo "Running on node: $(hostname)"
+echo "==========================================================="
+
+# --- 1. SET UP ENVIRONMENT ---
+echo "--- STAGE 1: SETTING UP ENVIRONMENT ---"
+export HF_HOME=/srv/scratch/z5542506/hf_cache
+export NLTK_DATA=/home/z5542506/9991/BiMark/nltk_data
+export GLOBAL_SEED=42 # 固定种子以便调试
+echo "HF_HOME set to: $HF_HOME"
+echo "NLTK_DATA set to: $NLTK_DATA"
+echo "GLOBAL_SEED set to: $GLOBAL_SEED"
+
+cd $PBS_O_WORKDIR 
+echo "Changed to working directory: $(pwd)"
+
+# Load modules
+echo "Loading modules..."
+module load python/3.13.2
+if [ $? -ne 0 ]; then echo "Module load failed!"; exit 1; fi
+
+# 检查 uv
+UV_ENV_SCRIPT="$HOME/.local/bin/env"
+echo "PBS: Sourcing user's uv environment script: $UV_ENV_SCRIPT"
+if [ ! -f "$UV_ENV_SCRIPT" ]; then
+    echo "PBS: UV environment script not found at $UV_ENV_SCRIPT! Aborting."
+    exit 1
+fi
+. "$UV_ENV_SCRIPT"
+if ! command -v uv &> /dev/null; then
+    echo "PBS: 'uv' command not found even after sourcing env script! Aborting."
+    exit 1
+fi
+echo "PBS: Environment setup complete. 'uv' is available."
+
+# --- 2. RUN TEXT GENERATION (Replicating Paper) ---
+echo "--- STAGE 2: RUNNING TEXT GENERATION (TABLE 2) ---"
+echo "PBS: Starting Generation at: $(date)"
+
+# 这些参数来自论文 5.1 节 [cite: 307, 309, 310, 321]
+GENERATION_LOG=$(\
+    uv run python3 generate_text_dump.py \
+        --model_name "meta-llama/Meta-Llama-3.1-8B" \
+        --method "bimark" \
+        --message "10101010" \
+        --ecc_method "none" \
+        --ecc_strength 0 \
+        --prob_delta 1.0 \
+        --partition_seeds "1,2,3,4,5,6,7,8,9,10" \
+        --window_size 2 \
+        --num_test 100 \
+        --batch_size 10 \
+        --max_new_tokens 350 \
+        --do_sample \
+        --top_k 50 \
+        --temperature 1.0 2>&1 | tee /dev/fd/2 \
+)
+if [ $? -ne 0 ]; then echo "Generation failed!"; exit 1; fi
+
+# 3. 从日志中捕获目录名
+OUTPUT_DIR_NAME=$(echo "$GENERATION_LOG" | grep "AUTOMATION_OUTPUT_DIR:" | cut -d':' -f2 | tr -d '[:space:]')
+if [ -z "$OUTPUT_DIR_NAME" ]; then echo "Could not find OUTPUT_DIR_NAME!"; exit 1; fi
+echo "PBS: Replication directory is: $OUTPUT_DIR_NAME"
+
+
+# --- 3. RUN DETECTION (for Hit Rate) ---
+echo "--- STAGE 3: RUNNING DETECTION (FOR HIT RATE) ---"
+# (我们使用 --paraphrase_attack --lex_diversity 0 --order_diversity 0 来模拟 "无攻击" 检测)
+# (这会生成 detect_result_wm_dp_0_0.csv 文件)
+uv run python3 detect_generation_text_dump.py \
+    --data_dir "$OUTPUT_DIR_NAME" \
+    --paraphrase_attack \
+    --lex_diversity 0 \
+    --order_diversity 0 2>&1
+if [ $? -ne 0 ]; then echo "Paraphrase (0,0) failed!"; exit 1; fi
+
+uv run python3 detect_generation_text_dump.py \
+    --data_dir "$OUTPUT_DIR_NAME" \
+    --detect \
+    --paraphrase_detect \
+    --lex_diversity 0 \
+    --order_diversity 0 2>&1
+if [ $? -ne 0 ]; then echo "Detection (0,0) failed!"; exit 1; fi
+echo "PBS: Hit Rate results saved in $OUTPUT_DIR_NAME/detect_result_wm_dp_0_0.csv"
+
+# --- 4. RUN PERPLEXITY ---
+echo "--- STAGE 4: RUNNING PERPLEXITY (FOR PPL) ---"
+# (我们不需要攻击或检测, 只需要 --perplexity)
+uv run python3 detect_generation_text_dump.py \
+    --data_dir "$OUTPUT_DIR_NAME" \
+    --perplexity \
+    --ppl_length 300 2>&1 # 匹配论文的最大测试长度 
+if [ $? -ne 0 ]; then echo "Perplexity calculation failed!"; exit 1; fi
+echo "PBS: PPL results saved in $OUTPUT_DIR_NAME/ppl_result_300_gemma.csv"
+
+# --- 5. JOB COMPLETION ---
+echo "==========================================================="
+echo "PBS: Job finished successfully at: $(date)"
+echo "Replication results are in directory: $OUTPUT_DIR_NAME"
+echo "1. Compare 'hit_rate' in '$OUTPUT_DIR_NAME/detect_result_wm_dp_0_0.csv' with Table 2 'Rate' "
+echo "2. Compare 'bimark_ppl' in '$OUTPUT_DIR_NAME/ppl_result_300_gemma.csv' with Table 2 'PPL' "
+echo "==========================================================="

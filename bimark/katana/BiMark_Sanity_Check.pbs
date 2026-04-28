@@ -1,0 +1,130 @@
+#!/bin/bash
+
+#PBS -N BiMark_Sanity_Check
+#PBS -l select=1:ncpus=4:mem=64gb:ngpus=1:gpu_model=H200
+#PBS -l walltime=00:30:00
+#PBS -M z5542506@ad.unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+
+# =============================================================================
+# BiMark 最小可行性验证脚本 (Sanity Check)
+# =============================================================================
+
+MODEL_NAME="meta-llama/Meta-Llama-3.1-8B"
+BATCH_SIZE=5        
+MAX_TOKENS=80       # [MODIFIED] Increased to 80 to avoid length filter issues
+NUM_TESTS=10        
+LAYERS=5            
+MSG_LEN=8           
+ATTACK_STRENGTH=20
+PARA_BATCH_SIZE=5
+
+export HF_HOME=/srv/scratch/z5542506/hf_cache
+export NLTK_DATA=/home/z5542506/9991/BiMark/nltk_data
+export GLOBAL_SEED=42
+MANIFEST_FILE="sanity_check_manifest.json"
+
+# =============================================================================
+
+cd $PBS_O_WORKDIR
+module load python/3.13.2
+if ! command -v uv &> /dev/null; then echo "Error: uv not found"; exit 1; fi
+
+if [ -f "$MANIFEST_FILE" ]; then rm "$MANIFEST_FILE"; fi
+echo "[]" > $MANIFEST_FILE
+
+cat <<EOF > _helper_gen_params.py
+import sys
+import numpy as np
+import random
+def gen_bits(length): return "".join([str(random.randint(0,1)) for _ in range(int(length))])
+if __name__ == "__main__": print(gen_bits(sys.argv[2]))
+EOF
+
+register_experiment() {
+    uv run python3 -c "
+import json, os
+entry = $1
+path = '$MANIFEST_FILE'
+try:
+    data = json.load(open(path)) if os.path.exists(path) else []
+except:
+    data = []
+data.append(entry)
+with open(path, 'w') as f: json.dump(data, f, indent=4)
+"
+}
+
+run_pipeline() {
+    DESC=$1
+    ECC_TYPE=$2
+    ECC_STR=$3
+    DELTA_STR=$4
+    
+    echo "-----------------------------------------------------------"
+    echo "Running Test: $DESC"
+    echo "-----------------------------------------------------------"
+    
+    MESSAGE=$(uv run python3 _helper_gen_params.py bits $MSG_LEN)
+    
+    # 1. 生成
+    echo "  [1/4] Generating..."
+    LOG_OUTPUT=$(\
+        uv run python3 generate_text_dump.py \
+        --model_name "$MODEL_NAME" --method "bimark" \
+        --message "$MESSAGE" --ecc_method "$ECC_TYPE" --ecc_strength $ECC_STR \
+        --prob_delta "$DELTA_STR" --partition_seeds "0,1,2,3,4" \
+        --num_test $NUM_TESTS --batch_size $BATCH_SIZE --max_new_tokens $MAX_TOKENS 2>&1 | tee /dev/fd/2 \
+    )
+    DIR_NAME=$(echo "$LOG_OUTPUT" | grep "AUTOMATION_OUTPUT_DIR:" | cut -d':' -f2 | tr -d '[:space:]')
+    
+    if [ -z "$DIR_NAME" ]; then 
+        echo "  ERROR: Generation failed! Check logs above."
+        return 1
+    fi
+    
+    # 2. PPL
+    echo "  [2/4] PPL..."
+    uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" --perplexity --length_all
+    
+    # 3. Attack
+    echo "  [3/4] Attack..."
+    uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" \
+        --paraphrase_attack --lex_diversity $ATTACK_STRENGTH --order_diversity $ATTACK_STRENGTH --paraphrase_batch $PARA_BATCH_SIZE
+        
+    # 4. Detect
+    echo "  [4/4] Detect..."
+    uv run python3 detect_generation_text_dump.py --data_dir "$DIR_NAME" \
+        --detect --paraphrase_detect --lex_diversity $ATTACK_STRENGTH --order_diversity $ATTACK_STRENGTH
+
+    # 验证
+    FULL_PATH="output_dump/$DIR_NAME"
+    echo "  [Check] Verifying outputs in $FULL_PATH:"
+    
+    FILES=("generation_params.json" "generation_text.jsonl" "ppl_result_all.csv" "detect_result_wm_dp_${ATTACK_STRENGTH}_${ATTACK_STRENGTH}.csv")
+    ALL_OK=true
+    for f in "${FILES[@]}"; do
+        if [ -f "$FULL_PATH/$f" ]; then
+            echo "    [OK] Found $f"
+        else
+            echo "    [FAIL] Missing $f"
+            ALL_OK=false
+        fi
+    done
+    
+    if [ "$ALL_OK" = true ]; then
+        register_experiment "{\"desc\": \"$DESC\", \"directory\": \"$DIR_NAME\"}"
+        echo "  SUCCESS: Pipeline completed for $DESC"
+    else
+        echo "  WARNING: Some files are missing!"
+    fi
+}
+
+# Run tests
+run_pipeline "Standard_BiMark" "none" 0 "1.0,1.0,1.0,1.0,1.0"
+run_pipeline "BiMark_Hamming74" "hamming74" 4 "1.0,1.0,1.0,1.0,1.0"
+run_pipeline "BiMark_ReedSolomon" "reedsolomon" 2 "1.0,1.0,1.0,1.0,1.0"
+run_pipeline "BiMark_DynamicDelta" "none" 0 "0.5,0.75,1.0,1.25,1.5"
+
+echo "Sanity Check Finished."

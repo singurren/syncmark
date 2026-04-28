@@ -7,7 +7,7 @@ import math
 import random
 from typing import Sequence
 
-from syncmark.alignment import align_and_decode
+from syncmark.alignment import AlignmentWeights, align_and_decode
 from syncmark.framing import build_layout, check_crc
 from syncmark.utils import bits_to_str, str_to_bits
 
@@ -266,7 +266,14 @@ def decode_syncmark_position_vote(obs_bits: Sequence[int], message_bits: str, te
 
 def decode_syncmark_alignment(obs_bits: Sequence[int], message_bits: str, text_length: int, anchor_len: int, key: str) -> dict:
     layout = build_layout(str_to_bits(message_bits), text_length=text_length, anchor_len=anchor_len, key=key)
-    decoded = align_and_decode(list(map(int, obs_bits)), layout, message_len=len(message_bits))
+    weights = AlignmentWeights(
+        anchor_match=2.0,
+        anchor_mismatch=-1.0,
+        payload_match=0.35,
+        gap=-2.0,
+        anchor_gap=-2.5,
+    )
+    decoded = align_and_decode(list(map(int, obs_bits)), layout, message_len=len(message_bits), weights=weights)
     recovered = bits_to_str(decoded.recovered_bits)
     return {
         "recovered_bits": recovered,

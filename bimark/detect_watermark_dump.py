@@ -367,4 +367,44 @@ class WatermarkDetector:
         
         print('z_score_bits:', z_score_bits)
         return z_score, z_p_value, green_count,  generate_count, valid_count, stride_list, bits_green_count, bits_valid_count, z_score_bits, z_p_value_bits
+
+    def extract_position_schedule_observed_bits(self, detect_gen_tokens, partition_seeds, c_key, weight=0):
+        if weight == 0:
+            weight = [1 for _ in range(partition_seeds)]
+
+        partition_masks = []
+        for key in partition_seeds:
+            num_V0 = int(self.vocab_size * 0.5)
+            rng = np.random.default_rng(key)
+            mask = np.zeros(self.vocab_size, dtype=bool)
+            mask[rng.choice(self.vocab_size, num_V0, replace=False)] = True
+            partition_masks.append(mask)
+
+        observed_bits = []
+        hist = set()
+        for t in range(self.window_size, detect_gen_tokens.shape[-1]):
+            prefix = detect_gen_tokens[t - self.window_size: t]
+            c_seed = prf(prefix, c_key)
+
+            if prefix in hist:
+                continue
+            hist.add(prefix)
+
+            rng_c = np.random.default_rng(c_seed)
+            c_list = rng_c.integers(0, 2, size=len(partition_masks))
+            token_idx = detect_gen_tokens[t].item()
+
+            bit_votes = [0, 0]
+            for i, mask in enumerate(partition_masks):
+                c_value = c_list[i]
+                if (c_value == 1 and mask[token_idx].item() is False) or (c_value == 0 and mask[token_idx].item() is True):
+                    bit_votes[1] += 1 * weight[i]
+                elif (c_value == 1 and mask[token_idx].item() is True) or (c_value == 0 and mask[token_idx].item() is False):
+                    bit_votes[0] += 1 * weight[i]
+                else:
+                    bit_votes[random.randint(0, 1)] += 1 * weight[i]
+
+            observed_bits.append(1 if bit_votes[1] > bit_votes[0] else 0)
+
+        return observed_bits
             

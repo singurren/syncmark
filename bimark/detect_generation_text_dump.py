@@ -11,10 +11,12 @@ try:
     from .perplexity import LocalModel
     from .utils import read_json_file, read_jsonl_file
     from .detect_watermark_dump import WatermarkDetector
+    from .syncmark_support import decode_syncmark_alignment, decode_syncmark_position_vote
 except ImportError:
     from perplexity import LocalModel
     from utils import read_json_file, read_jsonl_file
     from detect_watermark_dump import WatermarkDetector
+    from syncmark_support import decode_syncmark_alignment, decode_syncmark_position_vote
 from tqdm import tqdm
 try:
     from .dipper import DipperParaphraser
@@ -169,6 +171,9 @@ def main(args):
         original_msg = params.get("original_message", "")
         ecc_method = params.get("ecc_method", "none").lower()
         ecc_strength = params.get("ecc_strength", 0)
+        syncmark_outer = bool(params.get("syncmark_outer", False)) or params.get("schedule_mode", "") == "position_schedule"
+        syncmark_anchor_len = int(params.get("syncmark_anchor_len", 6))
+        syncmark_key = params.get("syncmark_key", "syncmark-bimark-real")
         
         # [DEBUG] Fallback keys if missing
         c_key = params.get('c_key', 8214793)
@@ -204,46 +209,80 @@ def main(args):
                     
                     curr_tokens = tokens[:t_len]
                     
-                    # [FIXED] Use variables with defaults
-                    ret = detector.decode_bimark_multibit_watermark(
-                        inputs=curr_tokens, partition_seeds=seeds, c_key=c_key, 
-                        bit_idx_key=bit_idx_key, bits=bits_encoded, bits_len=len(bits_encoded), 
-                        weight=weights, start=25, stride=t_len
-                    )
-                    
-                    decoded_bits_list = ret[6]
-                    
-                    if not decoded_bits_list: continue
-                    
-                    raw_extracted_bits = decoded_bits_list[0].replace('x', '0')
-                    final_extracted_msg = ""
-                    
-                    if ecc_method == 'reedsolomon':
-                        try:
-                            byte_arr = bytearray()
-                            for i in range(0, len(raw_extracted_bits), 8):
-                                byte_arr.append(int(raw_extracted_bits[i:i+8], 2))
-                            rsc = RSCodec(ecc_strength)
-                            decoded_bytes = rsc.decode(byte_arr)[0]
-                            for b in decoded_bytes: final_extracted_msg += f"{b:08b}"
-                            final_extracted_msg = final_extracted_msg[:len(original_msg)]
-                        except:
+                    if syncmark_outer:
+                        obs_bits = detector.extract_position_schedule_observed_bits(
+                            detect_gen_tokens=curr_tokens,
+                            partition_seeds=seeds,
+                            c_key=c_key,
+                            weight=weights,
+                        )
+                        decoded_rows = {
+                            "syncmark_position_vote": decode_syncmark_position_vote(
+                                obs_bits,
+                                original_msg,
+                                text_length=t_len,
+                                anchor_len=syncmark_anchor_len,
+                                key=syncmark_key,
+                            ),
+                            "syncmark_alignment": decode_syncmark_alignment(
+                                obs_bits,
+                                original_msg,
+                                text_length=t_len,
+                                anchor_len=syncmark_anchor_len,
+                                key=syncmark_key,
+                            ),
+                        }
+                        for decoder_name, decoded in decoded_rows.items():
+                            results.append({
+                                "length": t_len,
+                                "decoder": decoder_name,
+                                "hit_rate": decoded["bit_accuracy"],
+                                "ber": 1.0 - decoded["bit_accuracy"],
+                                "exact_recovery": decoded["exact_recovery"],
+                                "crc_pass": decoded.get("crc_pass"),
+                                "observed_bits_len": len(obs_bits),
+                            })
+                    else:
+                        # [FIXED] Use variables with defaults
+                        ret = detector.decode_bimark_multibit_watermark(
+                            inputs=curr_tokens, partition_seeds=seeds, c_key=c_key,
+                            bit_idx_key=bit_idx_key, bits=bits_encoded, bits_len=len(bits_encoded),
+                            weight=weights, start=25, stride=t_len
+                        )
+
+                        decoded_bits_list = ret[6]
+
+                        if not decoded_bits_list: continue
+
+                        raw_extracted_bits = decoded_bits_list[0].replace('x', '0')
+                        final_extracted_msg = ""
+
+                        if ecc_method == 'reedsolomon':
+                            try:
+                                byte_arr = bytearray()
+                                for i in range(0, len(raw_extracted_bits), 8):
+                                    byte_arr.append(int(raw_extracted_bits[i:i+8], 2))
+                                rsc = RSCodec(ecc_strength)
+                                decoded_bytes = rsc.decode(byte_arr)[0]
+                                for b in decoded_bytes: final_extracted_msg += f"{b:08b}"
+                                final_extracted_msg = final_extracted_msg[:len(original_msg)]
+                            except:
+                                final_extracted_msg = raw_extracted_bits[:len(original_msg)]
+                        elif ecc_method == 'hamming74':
+                            final_extracted_msg = hamming74_decode_bits(raw_extracted_bits, len(original_msg))
+                        else:
                             final_extracted_msg = raw_extracted_bits[:len(original_msg)]
-                    elif ecc_method == 'hamming74':
-                        final_extracted_msg = hamming74_decode_bits(raw_extracted_bits, len(original_msg))
-                    else:
-                        final_extracted_msg = raw_extracted_bits[:len(original_msg)]
-                    
-                    hits = 0
-                    match_len = min(len(original_msg), len(final_extracted_msg))
-                    if match_len > 0:
-                        for i in range(match_len):
-                            if original_msg[i] == final_extracted_msg[i]: hits += 1
-                        hit_rate = hits / len(original_msg)
-                    else:
-                        hit_rate = 0.0
-                    
-                    results.append({ "length": t_len, "hit_rate": hit_rate, "ber": 1.0 - hit_rate })
+
+                        hits = 0
+                        match_len = min(len(original_msg), len(final_extracted_msg))
+                        if match_len > 0:
+                            for i in range(match_len):
+                                if original_msg[i] == final_extracted_msg[i]: hits += 1
+                            hit_rate = hits / len(original_msg)
+                        else:
+                            hit_rate = 0.0
+
+                        results.append({ "length": t_len, "decoder": "bimark_position_vote", "hit_rate": hit_rate, "ber": 1.0 - hit_rate })
                     item_detected = True
                 
                 if item_detected:

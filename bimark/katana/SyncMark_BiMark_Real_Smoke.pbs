@@ -1,0 +1,84 @@
+#!/bin/bash
+# Real SyncMark + BiMark small smoke test for Katana.
+
+#PBS -N syncmark_bimark_real_smoke
+#PBS -l select=1:ncpus=4:mem=24gb:ngpus=1
+#PBS -l walltime=02:00:00
+#PBS -M z5542506@ad.unsw.edu.au
+#PBS -j oe
+#PBS -m abe
+
+set -euo pipefail
+
+PROJECT_DIR="/srv/scratch/z5542506/syncmark"
+RUN_ID="${PBS_JOBID%%.*}"
+
+if [ -z "${RUN_ID}" ]; then
+    RUN_ID="$(date +%Y%m%d_%H%M%S)"
+fi
+
+cd "${PROJECT_DIR}"
+module load cuda/13.0.0
+
+export PYTHONUNBUFFERED=1
+export UV_CACHE_DIR="/tmp/${USER}/uv-cache"
+export HF_HOME="/srv/scratch/z5542506/hf_cache"
+export HF_HUB_CACHE="${HF_HOME}/hub"
+export HF_DATASETS_CACHE="${HF_HOME}/datasets"
+export XDG_CACHE_HOME="/srv/scratch/z5542506/.cache"
+export OMP_NUM_THREADS=2
+export MKL_NUM_THREADS=2
+
+mkdir -p "${UV_CACHE_DIR}" "${HF_HOME}" "${HF_HUB_CACHE}" "${HF_DATASETS_CACHE}" "${XDG_CACHE_HOME}"
+
+uv sync --frozen
+
+MODEL_NAME="${MODEL_NAME:-gpt2}"
+NUM_TEST="${NUM_TEST:-20}"
+MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-160}"
+MESSAGE="${MESSAGE:-1011001110001111}"
+
+echo "==============================="
+echo "Run ID     : ${RUN_ID}"
+echo "Project    : ${PROJECT_DIR}"
+echo "Model      : ${MODEL_NAME}"
+echo "Num test   : ${NUM_TEST}"
+echo "New tokens : ${MAX_NEW_TOKENS}"
+echo "Python     : $(uv run python --version)"
+echo "PyTorch    : $(uv run python -c 'import torch; print(torch.__version__, \"| CUDA build:\", torch.version.cuda, \"| CUDA visible:\", torch.cuda.is_available())')"
+echo "Started    : $(date)"
+echo "==============================="
+
+nvidia-smi
+
+GEN_LOG="$(mktemp)"
+
+uv run python -m bimark.generate_text_dump \
+    --model_name "${MODEL_NAME}" \
+    --method bimark \
+    --syncmark_outer \
+    --ecc_method none \
+    --message "${MESSAGE}" \
+    --dataset c4 \
+    --num_test "${NUM_TEST}" \
+    --max_new_tokens "${MAX_NEW_TOKENS}" \
+    --batch_size 4 \
+    --prompt_len 50 \
+    --do_sample \
+    | tee "${GEN_LOG}"
+
+OUTPUT_DIR="$(grep 'AUTOMATION_OUTPUT_DIR:' "${GEN_LOG}" | tail -n 1 | cut -d: -f2-)"
+
+if [ -z "${OUTPUT_DIR}" ]; then
+    echo "Could not parse output directory from generation log." >&2
+    exit 1
+fi
+
+uv run python -m bimark.detect_generation_text_dump \
+    --data_dir "${OUTPUT_DIR}" \
+    --detect
+
+echo "==============================="
+echo "Output dir : ${PROJECT_DIR}/output_dump/${OUTPUT_DIR}"
+echo "Finished   : $(date)"
+echo "==============================="

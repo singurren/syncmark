@@ -1,0 +1,20 @@
+{
+  "trials": 30,
+  "message_bits": 16,
+  "text_length": 300,
+  "anchor_len": 6,
+  "syncmark_key": "syncmark-bimark-smoke",
+  "seed": 42,
+  "attack": {
+    "p_del": 0.02,
+    "p_ins": 0.02,
+    "p_sub": 0.0
+  },
+  "signal": {
+    "vocab_size": 4096,
+    "window_size": 2,
+    "candidate_pool": 256,
+    "bias_strength": 1.15,
+    "seed_mode": "position"
+  }
+}
