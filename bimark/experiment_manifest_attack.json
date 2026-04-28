@@ -1,0 +1,1406 @@
+[
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-45-00"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-45-00"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-45-00"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-45-00"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-51-54"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-51-54"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-51-54"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-51-54"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-57-06"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-57-06"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-57-06"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_18-57-06"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-02-17"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-02-17"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-02-17"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-02-17"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-07-31"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-07-31"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-07-31"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-07-31"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-12-51"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-12-51"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-12-51"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-12-51"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-18-07"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-18-07"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-18-07"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "none",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-18-07"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-23-20"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-23-20"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-23-20"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "hamming74",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-23-20"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-28-32"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-28-32"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-28-32"
+    },
+    {
+        "experiment_group": "ecc",
+        "ecc_method": "reedsolomon",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-28-32"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-33-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-33-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-33-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-33-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-39-16"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-39-16"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-39-16"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-39-16"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-46-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-46-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-46-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-46-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-52-31"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-52-31"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-52-31"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-52-31"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-58-33"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-58-33"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-58-33"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_19-58-33"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-04-24"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-04-24"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-04-24"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-04-24"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-10-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-10-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-10-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-10-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-16-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-16-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-16-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-16-26"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-21-35"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-21-35"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-21-35"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-21-35"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-26-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-26-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-26-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-26-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-32-18"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-32-18"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-32-18"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-32-18"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-37-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-37-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-37-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 8,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-37-50"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-43-17"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-43-17"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-43-17"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-43-17"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-48-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-48-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-48-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-48-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-53-04"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-53-04"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-53-04"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-53-04"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-58-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-58-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-58-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_20-58-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-03-05"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-03-05"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-03-05"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-03-05"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-08-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-08-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-08-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-08-08"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-15-01"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-15-01"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-15-01"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-15-01"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-22-47"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-22-47"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-22-47"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-22-47"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-28-22"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-28-22"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-28-22"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-28-22"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-33-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-33-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-33-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-33-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-39-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-39-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-39-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-39-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-45-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-45-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-45-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 16,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-45-38"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-51-30"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-51-30"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-51-30"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-51-30"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-56-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-56-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-56-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_21-56-44"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-01-40"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-01-40"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-01-40"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 1,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-01-40"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-06-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-06-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-06-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-06-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-11-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-11-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-11-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-11-45"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-16-43"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-16-43"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-16-43"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 5,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-16-43"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-21-39"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-21-39"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-21-39"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-21-39"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-26-55"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-26-55"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-26-55"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-26-55"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-32-00"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-32-00"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-32-00"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 10,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-32-00"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-37-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-37-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-37-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "constant",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-37-03"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-42-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-42-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-42-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "increasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-42-42"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 0,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-48-12"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 20,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-48-12"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 40,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-48-12"
+    },
+    {
+        "experiment_group": "delta",
+        "layers": 20,
+        "pattern": "decreasing",
+        "msg_len": 32,
+        "attack_strength": 60,
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_22-48-12"
+    }
+]

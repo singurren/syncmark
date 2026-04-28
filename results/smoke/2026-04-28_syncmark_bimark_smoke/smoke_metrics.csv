@@ -1,0 +1,5 @@
+trial,method,message_bits,text_length,anchor_len,bit_accuracy,exact_recovery,crc_pass,alignment_score,clean_token_len,attacked_token_len,observed_bits_len,recovered_bits
+0,bimark_position_vote,16,80,6,0.75,0.0,,,82,86,84,0110100100010111
+0,bimark_hamming74,16,80,6,0.625,0.0,,,82,83,81,0010111110110011
+0,syncmark_position_vote,16,80,6,0.4375,0.0,False,,82,77,75,1111111110100010
+0,syncmark_alignment,16,80,6,0.5,0.0,False,45.20000000000006,82,77,75,1111111111111010

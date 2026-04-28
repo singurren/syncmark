@@ -1,0 +1,22 @@
+category,title,year,venue_or_status,link,why_it_matters
+foundation,A Watermark for Large Language Models,2023,ICML 2023,https://proceedings.mlr.press/v202/kirchenbauer23a.html,Canonical KGW baseline
+foundation,Unbiased Watermark for Large Language Models,2023,arXiv,https://arxiv.org/abs/2310.10669,Distortion-free/unbiased basis
+foundation,A Resilient and Accessible Distribution-Preserving Watermark for Large Language Models,2024,ICML 2024,https://proceedings.mlr.press/v235/wu24h.html,Distribution-preserving and accessible detection
+multi-bit,Provably Robust Multi-bit Watermarking for AI-generated Text,2025,USENIX Security 2025,https://www.usenix.org/conference/usenixsecurity25/presentation/qu-watermarking,Early strong robust multi-bit baseline
+multi-bit,Watermarking Language Models with Error Correcting Codes,2025,WMARK@ICLR 2025,https://openreview.net/forum?id=xetVzmw9dW,Coding-theoretic watermarking reference
+multi-bit,BiMark: Unbiased Multilayer Watermarking for Large Language Models,2025,ICML 2025,https://arxiv.org/abs/2506.21602,Your current baseline and continuity point
+multi-bit,DERMARK: A Dynamic Efficient and Robust Multi-bit Watermark for Large Language Models,2025,arXiv,https://arxiv.org/abs/2502.05213,Dynamic capacity-aware embedding
+multi-bit,Majority Bit-Aware Watermarking For Large Language Models,2025,arXiv,https://arxiv.org/abs/2508.03829,Alternative multi-bit coding strategy
+multi-bit,MirrorMark: A Distortion-Free Multi-Bit Watermark for Large Language Models,2026,arXiv,https://arxiv.org/abs/2601.22246,Recent distortion-free multi-bit method
+multi-bit,XMark: Reliable Multi-Bit Watermarking for LLM-Generated Texts,2026,ACL 2026 main conference,https://arxiv.org/abs/2604.05242,Newest strong short-text multi-bit paper
+attacks,Character-Level Perturbations Disrupt LLM Watermarks,2026,NDSS 2026,https://www.ndss-symposium.org/ndss-paper/character-level-perturbations-disrupt-llm-watermarks/,Most important realistic removal attack reference
+attacks,RLCracker: Exposing the Vulnerability of LLM Watermarks with Adaptive RL Attacks,2025,arXiv,https://arxiv.org/abs/2509.20924,Adaptive removal attack benchmark
+attacks,Detecting Post-generation Edits to Watermarked LLM Outputs via Combinatorial Watermarking,2026,ICLR 2026 submission,https://openreview.net/forum?id=SzrQBJDYHn,Edit localization and post-generation edits
+statistics,On the Empirical Power of Goodness-of-Fit Tests in Watermark Detection,2025,NeurIPS 2025 spotlight,https://openreview.net/forum?id=YES7VDXPV8,Detector-side statistical improvement
+forgery,Mitigating Watermark Forgery in Generative Models via Randomized Key Selection,2026,ICLR 2026 submission,https://openreview.net/forum?id=oSBHt98To6,Forgery robustness if thesis scope expands
+dlm,Watermarking Diffusion Language Models,2025,NeurIPS 2025 workshop,https://openreview.net/forum?id=Iw6kgfvsaL,First expectation-based DLM watermark
+dlm,Signed in Ink Hidden in Noise: Watermarking Diffusion Large Language Models,2026,ICLR 2026 submission,https://openreview.net/forum?id=Ovu02vITZN,Systematic dLLM watermark study / Ripple
+dlm,dMARK: Decoding-Guided Watermarking for Discrete Diffusion Language Models,2026,ICLR 2026 submission,https://openreview.net/forum?id=0hdSiZ1br0,Decoding-order watermarking for dLLMs
+dlm,Watermarking Discrete Diffusion Language Models,2025,arXiv,https://arxiv.org/abs/2511.02083,Distribution-preserving DDLM watermark
+open-source,OpenStamp: A Watermark for Open-Source Language Models,2026,ICLR 2026 submission,https://openreview.net/forum?id=DU5eTaQSHT,Model-side watermarking for open-source LLMs
+survey,Watermarking techniques for large language models: a survey,2026,Artificial Intelligence Review,https://link.springer.com/article/10.1007/s10462-025-11474-6,Fast re-entry survey

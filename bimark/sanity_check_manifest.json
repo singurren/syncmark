@@ -1,0 +1,18 @@
+[
+    {
+        "desc": "Standard_BiMark",
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_11-58-06"
+    },
+    {
+        "desc": "BiMark_Hamming74",
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_11-59-36"
+    },
+    {
+        "desc": "BiMark_ReedSolomon",
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_12-01-07"
+    },
+    {
+        "desc": "BiMark_DynamicDelta",
+        "directory": "bimark_c4_meta-llama-Meta-Llama-3.1-8B_2025-11-24_12-02-42"
+    }
+]

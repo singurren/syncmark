@@ -1,0 +1,11 @@
+.venv/
+.uv-cache/
+.codex
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+output_dump/
+out/
+
+hf_token.txt

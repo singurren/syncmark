@@ -1,0 +1,5 @@
+method,mean_bit_accuracy,mean_exact_recovery,mean_crc_pass,mean_attacked_token_len,mean_observed_bits_len
+syncmark_alignment,0.75,0.0,0.0,160.0,158.0
+bimark_position_vote,0.6875,0.0,,163.0,161.0
+syncmark_position_vote,0.5625,0.0,0.0,160.0,158.0
+bimark_hamming74,0.3125,0.0,,161.0,159.0

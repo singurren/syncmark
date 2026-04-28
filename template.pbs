@@ -1,0 +1,50 @@
+#!/bin/bash
+# SyncMark + BiMark GPU smoke script for Katana.
+
+#PBS -N syncmark_bimark_smoke
+#PBS -l select=1:ncpus=4:mem=16gb:ngpus=1
+#PBS -l walltime=01:00:00
+#PBS -M z5542506@ad.unsw.edu.au
+#PBS -j oe
+#PBS -m abe
+
+set -euo pipefail
+
+PROJECT_DIR="/srv/scratch/z5542506/syncmark"
+RUN_ID="${PBS_JOBID%%.*}"
+
+if [ -z "${RUN_ID}" ]; then
+    RUN_ID="$(date +%Y%m%d_%H%M%S)"
+fi
+
+cd "${PROJECT_DIR}"
+module load cuda/13.0.0
+
+export PYTHONUNBUFFERED=1
+export UV_CACHE_DIR="/tmp/${USER}/uv-cache"
+export HF_HOME="/srv/scratch/z5542506/hf_cache"
+export HF_HUB_CACHE="${HF_HOME}/hub"
+export HF_DATASETS_CACHE="${HF_HOME}/datasets"
+export XDG_CACHE_HOME="/srv/scratch/z5542506/.cache"
+export OMP_NUM_THREADS=2
+export MKL_NUM_THREADS=2
+
+mkdir -p "${UV_CACHE_DIR}" "${HF_HOME}" "${HF_HUB_CACHE}" "${HF_DATASETS_CACHE}" "${XDG_CACHE_HOME}"
+
+uv sync
+
+echo "==============================="
+echo "Run ID : ${RUN_ID}"
+echo "Project: ${PROJECT_DIR}"
+echo "Python : $(uv run python --version)"
+echo "PyTorch: $(uv run python -c 'import torch; print(torch.__version__, \"| CUDA build:\", torch.version.cuda, \"| CUDA visible:\", torch.cuda.is_available())')"
+echo "Started: $(date)"
+echo "==============================="
+
+nvidia-smi
+
+uv run python -m bimark.run_syncmark_bimark_smoke --trials 20
+
+echo "==============================="
+echo "Finished: $(date)"
+echo "==============================="

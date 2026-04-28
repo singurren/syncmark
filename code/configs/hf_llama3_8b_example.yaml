@@ -1,0 +1,10 @@
+model_name_or_path: meta-llama/Llama-3.1-8B-Instruct
+device: cuda
+max_new_tokens: 200
+temperature: 0.8
+top_p: 0.95
+delta: 1.5
+key: syncmark-demo-key
+partition_mode: position
+message_bits: 16
+message: 1011010010010110
