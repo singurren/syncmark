@@ -52,7 +52,7 @@ torch.manual_seed(seed)
 if torch.cuda.is_available():
     torch.cuda.manual_seed_all(seed)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 def save_human_written_as_json(prompt_idx, prompts, human_written, save_dir):
@@ -79,8 +79,14 @@ def main(args):
     time_str = now.strftime("%Y-%m-%d %H:%M:%S").replace(' ','_').replace(":","-")
     save_dir = create_save_dir(args, args.method,  time_str)
     
-    model = AutoModelForCausalLM.from_pretrained(args.model_name, device_map='auto', torch_dtype=torch.bfloat16)
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name, torch_dtype=torch.bfloat16)
+    model_dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
+    model_kwargs = {"torch_dtype": model_dtype}
+    if torch.cuda.is_available():
+        model_kwargs["device_map"] = "auto"
+    model = AutoModelForCausalLM.from_pretrained(args.model_name, **model_kwargs)
+    if not torch.cuda.is_available():
+        model = model.to(device)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = 'left'
     model.eval()

@@ -2,7 +2,7 @@
 # Real SyncMark + BiMark small smoke test for Katana.
 
 #PBS -N syncmark_bimark_real_smoke
-#PBS -l select=1:ncpus=4:mem=24gb:ngpus=1
+#PBS -l select=1:ncpus=4:mem=24gb
 #PBS -l walltime=02:00:00
 #PBS -M z5542506@ad.unsw.edu.au
 #PBS -j oe
@@ -18,7 +18,6 @@ if [ -z "${RUN_ID}" ]; then
 fi
 
 cd "${PROJECT_DIR}"
-module load cuda/13.0.0
 
 export PYTHONUNBUFFERED=1
 export UV_CACHE_DIR="/tmp/${USER}/uv-cache"
@@ -45,11 +44,10 @@ echo "Model      : ${MODEL_NAME}"
 echo "Num test   : ${NUM_TEST}"
 echo "New tokens : ${MAX_NEW_TOKENS}"
 echo "Python     : $(uv run python --version)"
-echo "PyTorch    : $(uv run python -c 'import torch; print(torch.__version__, \"| CUDA build:\", torch.version.cuda, \"| CUDA visible:\", torch.cuda.is_available())')"
+PYTORCH_INFO="$(uv run python -c 'import torch; print(torch.__version__, "| CUDA build:", torch.version.cuda, "| CUDA visible:", torch.cuda.is_available())')"
+echo "PyTorch    : ${PYTORCH_INFO}"
 echo "Started    : $(date)"
 echo "==============================="
-
-nvidia-smi
 
 GEN_LOG="$(mktemp)"
 

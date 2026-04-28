@@ -57,7 +57,7 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - For GPU jobs using the current lockfile, load `cuda/13.0.0` before running PyTorch. The current root environment resolves to a CUDA 13.0 PyTorch build.
 - Set `UV_CACHE_DIR` to a writable path such as `/tmp/${USER}/uv-cache` or a project-local cache before `uv sync` / `uv run`; the default scratch cache may be read-only in some sessions.
 - Use `template.pbs` as the reference style for new job scripts.
-- Use `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs` for the first real 20-50 sample SyncMark-on-BiMark smoke test.
+- Use `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs` for the first real 20-50 sample SyncMark-on-BiMark smoke test. It is CPU-only by default because the current CUDA 13.0 PyTorch build does not support Katana V100 GPUs.
 
 - 运行 SyncMark 和 BiMark 代码时统一使用根目录 `uv` 项目。根目录 `pyproject.toml` 与根目录 `uv.lock` 是运行依赖的唯一准则。
 - 常规运行不要在 `bimark/` 子目录创建、同步或记录独立虚拟环境。除非未来明确迁移，否则嵌套的 `bimark/pyproject.toml` 或 `bimark/uv.lock` 只视为历史元数据。
@@ -70,7 +70,7 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - 使用当前 lockfile 的 GPU 作业应先加载 `cuda/13.0.0`，因为当前根环境解析到 CUDA 13.0 版 PyTorch。
 - 在执行 `uv sync` / `uv run` 前，将 `UV_CACHE_DIR` 指向可写路径，例如 `/tmp/${USER}/uv-cache` 或项目内 cache；部分会话中的默认 scratch cache 可能是只读的。
 - 新 PBS 作业脚本的风格以 `template.pbs` 为参考。
-- 第一次真实 20-50 条 SyncMark-on-BiMark smoke test 使用 `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs`。
+- 第一次真实 20-50 条 SyncMark-on-BiMark smoke test 使用 `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs`。该脚本默认使用 CPU，因为当前 CUDA 13.0 PyTorch build 不支持 Katana V100 GPU。
 
 ## Result Logging Standard / 结果记录规范
 
