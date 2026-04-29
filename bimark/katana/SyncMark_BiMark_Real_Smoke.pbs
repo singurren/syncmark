@@ -40,6 +40,7 @@ MODEL_NAME="${MODEL_NAME:-gpt2}"
 NUM_TEST="${NUM_TEST:-20}"
 MAX_NEW_TOKENS="${MAX_NEW_TOKENS:-160}"
 MESSAGE="${MESSAGE:-1011001110001111}"
+SYNCMARK_ANCHOR_LEN="${SYNCMARK_ANCHOR_LEN:-8}"
 
 echo "==============================="
 echo "Run ID     : ${RUN_ID}"
@@ -47,6 +48,7 @@ echo "Project    : ${PROJECT_DIR}"
 echo "Model      : ${MODEL_NAME}"
 echo "Num test   : ${NUM_TEST}"
 echo "New tokens : ${MAX_NEW_TOKENS}"
+echo "Anchor len : ${SYNCMARK_ANCHOR_LEN}"
 echo "Python     : $(uv run python --version)"
 PYTORCH_INFO="$(uv run python -c 'import torch; print(torch.__version__, "| CUDA build:", torch.version.cuda, "| CUDA visible:", torch.cuda.is_available())')"
 echo "PyTorch    : ${PYTORCH_INFO}"
@@ -78,6 +80,7 @@ uv run python -m bimark.generate_text_dump \
     --model_name "${MODEL_NAME}" \
     --method bimark \
     --syncmark_outer \
+    --syncmark_anchor_len "${SYNCMARK_ANCHOR_LEN}" \
     --ecc_method none \
     --message "${MESSAGE}" \
     --dataset c4 \
@@ -104,6 +107,13 @@ uv run python -m bimark.run_real_syncmark_drift_smoke \
     --max_items "${NUM_TEST}" \
     --target_lengths 25,50,100 \
     --seed 4242
+
+uv run python -m bimark.run_real_syncmark_drift_grid \
+    --data_dir "${OUTPUT_DIR}" \
+    --max_items "${NUM_TEST}" \
+    --target_lengths 50,100,150 \
+    --output_prefix "syncmark_drift_grid_anchor${SYNCMARK_ANCHOR_LEN}_n${NUM_TEST}_seed5151" \
+    --seed 5151
 
 echo "==============================="
 echo "Output dir : ${PROJECT_DIR}/output_dump/${OUTPUT_DIR}"
