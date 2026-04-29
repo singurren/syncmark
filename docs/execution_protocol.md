@@ -60,6 +60,7 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - Set `UV_CACHE_DIR` to a writable path such as `/tmp/${USER}/uv-cache` or a project-local cache before `uv sync` / `uv run`; the default scratch cache may be read-only in some sessions.
 - Use `template.pbs` as the reference style for new job scripts.
 - Use `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs` for the first real 20-50 sample SyncMark-on-BiMark smoke test. It requests `gpu_model=L40S` by default and performs a PyTorch CUDA compatibility preflight before generation.
+- After real generation/detection, run `uv run python -m bimark.run_real_syncmark_drift_smoke --data_dir <output_dir> --max_items 20` to compare SyncMark position vote and alignment under token-level deletion/insertion drift.
 
 - 运行 SyncMark 和 BiMark 代码时统一使用根目录 `uv` 项目。根目录 `pyproject.toml` 与根目录 `uv.lock` 是运行依赖的唯一准则。
 - 常规运行不要在 `bimark/` 子目录创建、同步或记录独立虚拟环境。除非未来明确迁移，否则嵌套的 `bimark/pyproject.toml` 或 `bimark/uv.lock` 只视为历史元数据。
@@ -75,6 +76,7 @@ For the canonical directory layout, see `docs/repository_structure.md`.
 - 在执行 `uv sync` / `uv run` 前，将 `UV_CACHE_DIR` 指向可写路径，例如 `/tmp/${USER}/uv-cache` 或项目内 cache；部分会话中的默认 scratch cache 可能是只读的。
 - 新 PBS 作业脚本的风格以 `template.pbs` 为参考。
 - 第一次真实 20-50 条 SyncMark-on-BiMark smoke test 使用 `bimark/katana/SyncMark_BiMark_Real_Smoke.pbs`。该脚本默认申请 `gpu_model=L40S`，并在生成前执行 PyTorch CUDA 兼容性预检查。
+- 真实生成/检测之后，运行 `uv run python -m bimark.run_real_syncmark_drift_smoke --data_dir <output_dir> --max_items 20`，比较 token-level deletion/insertion drift 下 SyncMark position vote 与 alignment 的表现。
 
 ## Result Logging Standard / 结果记录规范
 

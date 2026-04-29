@@ -99,6 +99,12 @@ uv run python -m bimark.detect_generation_text_dump \
     --data_dir "${OUTPUT_DIR}" \
     --detect
 
+uv run python -m bimark.run_real_syncmark_drift_smoke \
+    --data_dir "${OUTPUT_DIR}" \
+    --max_items "${NUM_TEST}" \
+    --target_lengths 25,50,100 \
+    --seed 4242
+
 echo "==============================="
 echo "Output dir : ${PROJECT_DIR}/output_dump/${OUTPUT_DIR}"
 echo "Finished   : $(date)"
