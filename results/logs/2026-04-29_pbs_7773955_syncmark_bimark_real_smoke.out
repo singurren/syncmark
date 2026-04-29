@@ -1,0 +1,107 @@
+Checked 89 packages in 96ms
+===============================
+Run ID     : 7773955
+Project    : /srv/scratch/z5542506/syncmark
+Model      : gpt2
+Num test   : 20
+New tokens : 160
+Python     : Python 3.12.12
+PyTorch    : 2.11.0+cu130 | CUDA build: 13.0 | CUDA visible: True
+Tue Apr 28 18:58:46 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 590.48.01              Driver Version: 590.48.01      CUDA Version: 13.1     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:E1:00.0 Off |                    0 |
+| N/A   28C    P8             32W /  350W |       0MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Started    : Tue Apr 28 18:58:46 AEST 2026
+===============================
+CUDA visible: True
+Assigned GPU: NVIDIA L40S | compute capability: 8.9
+[DEBUG] Script Start. Method: bimark, ECC: none
+`torch_dtype` is deprecated! Use `dtype` instead!
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'allenai/c4' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+  0%|          | 0/5 [00:00<?, ?it/s]Method: none, Msg: 1011001110001111 (16), Encoded: 160
+WatermarkBimark initialized with deltas: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[DEBUG] Calling record_data with bits=Yes
+[DEBUG utils.py] Saving bits to jsonl: 0001111011... (Len: 160)
+ 20%|██        | 1/5 [00:03<00:12,  3.09s/it]Method: none, Msg: 1011001110001111 (16), Encoded: 160
+WatermarkBimark initialized with deltas: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[DEBUG] Calling record_data with bits=Yes
+[DEBUG utils.py] Saving bits to jsonl: 0001111011... (Len: 160)
+ 40%|████      | 2/5 [00:04<00:06,  2.14s/it]Method: none, Msg: 1011001110001111 (16), Encoded: 160
+WatermarkBimark initialized with deltas: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[DEBUG] Calling record_data with bits=Yes
+[DEBUG utils.py] Saving bits to jsonl: 0001111011... (Len: 160)
+ 60%|██████    | 3/5 [00:06<00:03,  1.83s/it]Method: none, Msg: 1011001110001111 (16), Encoded: 160
+WatermarkBimark initialized with deltas: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[DEBUG] Calling record_data with bits=Yes
+[DEBUG utils.py] Saving bits to jsonl: 0001111011... (Len: 160)
+ 80%|████████  | 4/5 [00:07<00:01,  1.74s/it]Method: none, Msg: 1011001110001111 (16), Encoded: 160
+WatermarkBimark initialized with deltas: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[DEBUG] Calling record_data with bits=Yes
+[DEBUG utils.py] Saving bits to jsonl: 0001111011... (Len: 160)
+100%|██████████| 5/5 [00:09<00:00,  1.64s/it]AUTOMATION_OUTPUT_DIR:bimark_c4_gpt2_2026-04-28_18-59-26
+100%|██████████| 5/5 [00:09<00:00,  1.82s/it]
+[nltk_data] Error loading punkt: <urlopen error [SSL:
+[nltk_data]     CERTIFICATE_VERIFY_FAILED] certificate verify failed:
+[nltk_data]     unable to get local issuer certificate (_ssl.c:1010)>
+DEBUG: Starting script for dir: bimark_c4_gpt2_2026-04-28_18-59-26
+DEBUG: Loaded 20 items from generation_text.jsonl
+DEBUG: Loading Tokenizer: gpt2
+`torch_dtype` is deprecated! Use `dtype` instead!
+DEBUG: Initializing WatermarkDetector
+DEBUG: ECC=none, MsgLen=16
+Detecting:   0%|          | 0/20 [00:00<?, ?it/s]Detecting:   5%|▌         | 1/20 [00:00<00:02,  8.96it/s]Detecting:  30%|███       | 6/20 [00:00<00:00, 30.47it/s]Detecting:  55%|█████▌    | 11/20 [00:00<00:00, 37.28it/s]Detecting:  80%|████████  | 16/20 [00:00<00:00, 40.66it/s]Detecting: 100%|██████████| 20/20 [00:00<00:00, 39.59it/s]
+DEBUG: Detection finished. 19 items processed successfully.
+DEBUG: 1 items skipped (empty text/bits).
+DEBUG: 0 items failed length check (too short).
+DEBUG: Saved results to /srv/scratch/z5542506/syncmark/output_dump/bimark_c4_gpt2_2026-04-28_18-59-26/detect_result_wm.csv
+===============================
+Output dir : /srv/scratch/z5542506/syncmark/output_dump/bimark_c4_gpt2_2026-04-28_18-59-26
+Finished   : Tue Apr 28 19:00:15 AEST 2026
+===============================
+
+================================================================================
+                     Resource Usage on 28/04/2026 19:00:18                      
+
+Job Id: 7773955 
+Queue: CSE
+Walltime: 00:01:44  (requested 02:00:00)
+Job execution was successful. Exit Status 0. 
+
+--------------------------------------------------------------------------------
+|              |             GPUs              |            Memory             |
+--------------------------------------------------------------------------------
+| Node  GPU ID | Requested   Used   Efficiency | Available   Used              |
+| k172    3    |     1       0.02       2%     | 46068 MiB   1.0G              |
+--------------------------------------------------------------------------------
+|Total         |     1       0.02      2.0%    |                               |
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+|              |             CPUs              |            Memory             |
+--------------------------------------------------------------------------------
+| Node         | Requested   Used   Efficiency | Requested   Used   Efficiency |
+| k172         |     4       0.22      6.0%    |  24.0gb    2.08gb     8.7%    |
+--------------------------------------------------------------------------------
